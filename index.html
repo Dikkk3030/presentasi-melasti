@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Melasti Tawur Kesanga di Ketewel</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cinzel:wght@400;600;700&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --gold:       #C9A84C;
+      --gold-light: #E8C96A;
+      --gold-pale:  #F5E4A8;
+      --deep:       #0A0705;
+      --brown:      #1C1108;
+      --sienna:     #3D1F0A;
+      --cream:      #F2EBD9;
+      --rust:       #8B3A10;
+    }
+
+    html, body {
+      width: 100%; height: 100%;
+      background: var(--deep);
+      overflow: hidden;
+      font-family: 'Lora', Georgia, serif;
+      color: var(--cream);
+    }
+
+    /* ── ORNAMENT SVG background ── */
+    .bg-mandala {
+      position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      opacity: .04;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 200 200'%3E%3Ccircle cx='100' cy='100' r='90' fill='none' stroke='%23C9A84C' stroke-width='1'/%3E%3Ccircle cx='100' cy='100' r='70' fill='none' stroke='%23C9A84C' stroke-width='0.5'/%3E%3Ccircle cx='100' cy='100' r='50' fill='none' stroke='%23C9A84C' stroke-width='1'/%3E%3Ccircle cx='100' cy='100' r='30' fill='none' stroke='%23C9A84C' stroke-width='0.5'/%3E%3Cline x1='10' y1='100' x2='190' y2='100' stroke='%23C9A84C' stroke-width='0.5'/%3E%3Cline x1='100' y1='10' x2='100' y2='190' stroke='%23C9A84C' stroke-width='0.5'/%3E%3Cline x1='36' y1='36' x2='164' y2='164' stroke='%23C9A84C' stroke-width='0.5'/%3E%3Cline x1='164' y1='36' x2='36' y2='164' stroke='%23C9A84C' stroke-width='0.5'/%3E%3C/svg%3E");
+      background-size: 200px 200px;
+    }
+
+    /* ── SLIDES CONTAINER ── */
+    #slider {
+      position: relative; z-index: 1;
+      width: 100%; height: 100vh;
+      display: flex;
+      transition: transform .85s cubic-bezier(.77,0,.18,1);
+    }
+
+    /* ── INDIVIDUAL SLIDE ── */
+    .slide {
+      min-width: 100vw; height: 100vh;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      padding: 3rem 5vw;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .slide::before, .slide::after {
+      content: '';
+      position: absolute;
+      border: 1px solid var(--gold);
+      pointer-events: none;
+    }
+    .slide::before { inset: 20px; opacity: .35; }
+    .slide::after  { inset: 26px; opacity: .15; }
+
+    .corner {
+      position: absolute;
+      width: 60px; height: 60px;
+      border-color: var(--gold);
+      border-style: solid;
+      opacity: .6;
+    }
+    .corner-tl { top: 14px; left: 14px; border-width: 2px 0 0 2px; }
+    .corner-tr { top: 14px; right:14px; border-width: 2px 2px 0 0; }
+    .corner-bl { bottom:14px; left:14px; border-width: 0 0 2px 2px; }
+    .corner-br { bottom:14px; right:14px; border-width: 0 2px 2px 0; }
+
+    /* ── SLIDE 1 — TITLE ── */
+    #slide-title {
+      background: radial-gradient(ellipse 80% 60% at 50% 40%, #2A1500 0%, var(--deep) 70%);
+      text-align: center;
+    }
+    #slide-title .om-symbol {
+      font-size: clamp(2.5rem, 6vw, 5rem);
+      color: var(--gold);
+      line-height: 1;
+      margin-bottom: .5rem;
+      animation: float 4s ease-in-out infinite;
+    }
+    @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-12px)} }
+
+    #slide-title h1 {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: clamp(1.6rem, 4.5vw, 4rem);
+      line-height: 1.15;
+      color: var(--gold-light);
+      text-shadow: 0 0 60px rgba(201,168,76,.5);
+      letter-spacing: .04em;
+      margin-bottom: 1rem;
+    }
+    #slide-title .subtitle {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(.85rem, 1.8vw, 1.25rem);
+      letter-spacing: .25em;
+      color: var(--gold-pale);
+      opacity: .7;
+      text-transform: uppercase;
+    }
+    .divider {
+      width: 180px; height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      margin: 1.2rem auto;
+    }
+
+    /* ── SLIDE 2 — IDENTITY ── */
+    #slide-id {
+      background: radial-gradient(ellipse 70% 70% at 30% 50%, #1A0C03 0%, var(--deep) 65%);
+    }
+    #slide-id .id-box {
+      border: 1px solid rgba(201,168,76,.3);
+      background: rgba(255,255,255,.03);
+      padding: 2.5rem 3.5rem;
+      max-width: 640px;
+      text-align: center;
+      backdrop-filter: blur(4px);
+    }
+    #slide-id .id-label {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(.65rem, 1.2vw, .85rem);
+      letter-spacing: .3em;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: 2rem;
+    }
+    #slide-id .id-name {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: clamp(1.1rem, 2.8vw, 2rem);
+      color: var(--gold-light);
+      margin-bottom: 1.5rem;
+    }
+    #slide-id table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: clamp(.8rem, 1.5vw, 1rem);
+    }
+    #slide-id td {
+      padding: .55rem 1rem;
+      border-bottom: 1px solid rgba(201,168,76,.12);
+    }
+    #slide-id td:first-child {
+      color: var(--gold);
+      font-family: 'Cinzel', serif;
+      font-size: .8em;
+      letter-spacing: .1em;
+      text-align: left;
+    }
+    #slide-id td:last-child { text-align: right; color: var(--cream); }
+
+    /* ── SLIDE 3 & 4 — TEKS ── */
+    #slide-penjelasan { background: radial-gradient(ellipse 80% 70% at 70% 40%, #1A0A03 0%, var(--deep) 65%); align-items: flex-start; }
+    #slide-proses { background: radial-gradient(ellipse 80% 70% at 30% 60%, #12080A 0%, var(--deep) 65%); align-items: flex-start; justify-content: center; }
+
+    .slide-inner { max-width: 900px; width: 100%; margin: 0 auto; }
+    .slide-tag {
+      font-family: 'Cinzel', serif; font-size: clamp(.6rem, 1.1vw, .8rem);
+      letter-spacing: .35em; color: var(--gold); text-transform: uppercase; margin-bottom: .8rem;
+    }
+    .slide-heading {
+      font-family: 'Cinzel Decorative', serif; font-size: clamp(1.3rem, 3.2vw, 2.6rem);
+      color: var(--gold-light); line-height: 1.2; margin-bottom: 1.2rem;
+    }
+    .slide-body {
+      font-size: clamp(.82rem, 1.45vw, 1.05rem); line-height: 1.9; color: rgba(242,235,217,.82);
+      max-height: 58vh; overflow-y: auto; padding-right: 8px;
+      scrollbar-width: thin; scrollbar-color: var(--gold) transparent;
+    }
+    .slide-body::-webkit-scrollbar { width: 4px; }
+    .slide-body::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 2px; }
+    .highlight { color: var(--gold-light); font-style: italic; }
+
+    /* ── SLIDE MEDIA UMUM ── */
+    .slide-media { background: #0A0705; padding: 0; }
+    .slide-media::before, .slide-media::after { opacity: .25; z-index: 10; pointer-events: none;}
+    
+    .overlay-gradient {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(10,7,5,0.95) 0%, rgba(10,7,5,0.4) 25%, rgba(10,7,5,0) 50%);
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .media-caption {
+      position: absolute;
+      bottom: 50px; left: 50%;
+      transform: translateX(-50%);
+      text-align: center;
+      z-index: 5;
+      width: 90%;
+    }
+    .media-caption h2 {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: clamp(1rem, 2.5vw, 1.8rem);
+      color: var(--gold-light);
+      text-shadow: 0 2px 20px rgba(0,0,0,1);
+      letter-spacing: .06em;
+    }
+    .media-caption p {
+      font-size: clamp(.7rem, 1.2vw, .9rem);
+      color: rgba(242,235,217,.9);
+      margin-top: .4rem;
+      letter-spacing: .1em;
+      text-shadow: 0 1px 8px rgba(0,0,0,1);
+    }
+
+    /* ── SLIDE 5 — 2 VIDEO ── */
+    .media-grid-2 {
+      position: absolute; inset: 0;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+      padding: 60px 40px 120px 40px; 
+      z-index: 1;
+    }
+    .media-grid-2 video {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      opacity: .75;
+      border-radius: 4px;
+      filter: sepia(.2) saturate(1.1);
+      transition: all 0.4s ease;
+    }
+    .media-grid-2 video:hover {
+      opacity: 1;
+      transform: scale(1.02);
+      filter: sepia(0) saturate(1.2);
+      z-index: 2;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+    }
+
+    /* ── SLIDE 6 — CAROUSEL 12 FOTO ── */
+    .carousel-container {
+      position: absolute; 
+      inset: 0;
+      display: flex; 
+      align-items: center; 
+      justify-content: center;
+      z-index: 3; /* Pastikan di atas overlay agar bisa diklik */
+    }
+    .carousel-track {
+      display: flex; 
+      gap: 20px;
+      width: 100%; 
+      height: 65vh; /* Tinggi area foto */
+      padding: 0 15vw; /* Padding kiri-kanan agar gambar sebelumnya/selanjutnya mengintip sedikit */
+      overflow-x: auto;
+      scroll-snap-type: x mandatory; /* Mengunci scroll pada setiap foto */
+      scrollbar-width: none; /* Menyembunyikan scrollbar di Firefox */
+      align-items: center;
+    }
+    .carousel-track::-webkit-scrollbar { display: none; /* Menyembunyikan scrollbar di Chrome/Safari */ }
+    
+  .carousel-track img {
+      flex: 0 0 70vw; 
+      max-width: 800px;
+      height: 100%;
+      object-fit: cover;
+      scroll-snap-align: center;
+      border-radius: 6px;
+      border: 1px solid rgba(201,168,76,.3);
+      box-shadow: 0 10px 40px rgba(0,0,0,0.8);
+      filter: sepia(.2) saturate(1.1);
+      transition: all 0.4s ease;
+      
+      /* --- KODE TAMBAHAN UNTUK MEMPERBAIKI PIKSEL PECAH --- */
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+      -webkit-transform: translateZ(0);
+      transform: translateZ(0);
+      will-change: transform, filter;
+    }
+    
+    .carousel-track img:hover {
+      filter: sepia(0) saturate(1.2);
+      transform: scale(1.01);
+    }
+
+    /* Tombol Navigasi Carousel Khusus */
+    .carousel-btn {
+      position: absolute; 
+      top: 50%; 
+      transform: translateY(-50%);
+      background: rgba(10,7,5,.8); 
+      color: var(--gold);
+      border: 1px solid rgba(201,168,76,.5); 
+      border-radius: 50%;
+      width: 50px; 
+      height: 50px; 
+      cursor: pointer; 
+      z-index: 10;
+      display: flex; 
+      align-items: center; 
+      justify-content: center;
+      font-size: 1.5rem;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(4px);
+    }
+    .carousel-btn:hover {
+      background: rgba(201,168,76,.2); 
+      border-color: var(--gold);
+      transform: translateY(-50%) scale(1.1);
+    }
+    .carousel-btn.prev { left: 4vw; }
+    .carousel-btn.next { right: 4vw; }
+
+    /* ── SLIDE 7 — CLOSING ── */
+    #slide-closing {
+      background: radial-gradient(ellipse 80% 80% at 50% 50%, #200E00 0%, var(--deep) 70%);
+      text-align: center;
+    }
+    #slide-closing .om-big {
+      font-size: clamp(3rem, 8vw, 7rem); color: var(--gold); line-height: 1;
+      animation: float 5s ease-in-out infinite; text-shadow: 0 0 80px rgba(201,168,76,.6);
+      margin-bottom: 1rem;
+    }
+    #slide-closing h2 {
+      font-family: 'Cinzel Decorative', serif; font-size: clamp(1.8rem, 5vw, 4.5rem);
+      color: var(--gold-light); text-shadow: 0 0 40px rgba(201,168,76,.4); margin-bottom: .8rem;
+    }
+    #slide-closing .sub {
+      font-family: 'Cinzel', serif; font-size: clamp(.75rem, 1.5vw, 1.1rem);
+      letter-spacing: .3em; color: var(--gold-pale); opacity: .6;
+    }
+    #slide-closing .closing-name {
+      margin-top: 2.5rem; font-size: clamp(.7rem, 1.2vw, .9rem);
+      color: rgba(242,235,217,.45); letter-spacing: .12em;
+    }
+
+    /* ── NAVIGATION ── */
+    #nav {
+      position: fixed; bottom: 20px; left: 50%;
+      transform: translateX(-50%); z-index: 100;
+      display: flex; align-items: center; gap: 1.2rem;
+    }
+    .nav-btn {
+      width: 46px; height: 46px; border-radius: 50%;
+      border: 1px solid rgba(201,168,76,.5); background: rgba(10,7,5,.7);
+      color: var(--gold); font-size: 1.2rem; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: all .3s; backdrop-filter: blur(6px);
+    }
+    .nav-btn:hover { background: rgba(201,168,76,.15); border-color: var(--gold); }
+    .nav-btn:disabled { opacity: .25; cursor: default; }
+    #dots { display: flex; gap: .6rem; align-items: center; }
+    .dot {
+      width: 7px; height: 7px; border-radius: 50%;
+      background: rgba(201,168,76,.25); border: 1px solid rgba(201,168,76,.4);
+      cursor: pointer; transition: all .3s;
+    }
+    .dot.active { background: var(--gold); transform: scale(1.4); }
+
+    /* ── SLIDE NUMBER & PROGRESS ── */
+    #slide-counter {
+      position: fixed; top: 22px; right: 36px; font-family: 'Cinzel', serif;
+      font-size: .75rem; color: rgba(201,168,76,.45); letter-spacing: .2em; z-index: 100;
+    }
+    #progress {
+      position: fixed; top: 0; left: 0; height: 2px;
+      background: linear-gradient(90deg, var(--rust), var(--gold), var(--gold-light));
+      z-index: 200; transition: width .85s cubic-bezier(.77,0,.18,1);
+    }
+
+    /* ── ENTRY ANIMATIONS ── */
+    .slide .anim { opacity: 0; transform: translateY(28px); transition: opacity .7s ease, transform .7s ease; }
+    .slide.active .anim { opacity: 1; transform: none; }
+    .slide.active .anim:nth-child(2) { transition-delay: .15s; }
+    .slide.active .anim:nth-child(3) { transition-delay: .3s; }
+    .slide.active .anim:nth-child(4) { transition-delay: .45s; }
+    .slide.active .anim:nth-child(5) { transition-delay: .6s; }
+    .lotus { display: block; text-align: center; font-size: 1.4rem; color: var(--gold); opacity: .5; margin: .8rem 0; letter-spacing: .5rem; }
+    @media (max-height: 600px) { .slide-body { font-size: .78rem; max-height: 52vh; } }
+  </style>
+</head>
+<body>
+
+<div class="bg-mandala"></div>
+<div id="progress"></div>
+<div id="slide-counter">01 / 07</div>
+
+<div id="slider">
+
+  <div class="slide active" id="slide-title">
+    <div class="corner corner-tl"></div><div class="corner corner-tr"></div>
+    <div class="corner corner-bl"></div><div class="corner corner-br"></div>
+    <div class="om-symbol anim">ॐ</div>
+    <div class="divider anim"></div>
+    <h1 class="anim">Melasti Tawur Kesanga<br>di Ketewel</h1>
+    <div class="divider anim"></div>
+    <p class="subtitle anim">Dokumentasi Upacara Suci Umat Hindu Bali</p>
+  </div>
+
+  <div class="slide" id="slide-id">
+    <div class="corner corner-tl"></div><div class="corner corner-tr"></div>
+    <div class="corner corner-bl"></div><div class="corner corner-br"></div>
+    <div class="id-box anim">
+      <p class="id-label anim">Identitas Mahasiswa</p>
+      <h2 class="id-name anim">I Komang Abhi Cakra Dharma</h2>
+      <div class="divider anim"></div>
+      <table class="anim">
+        <tr><td>NIM</td><td>202408013</td></tr>
+        <tr><td>Program Studi</td><td>Fotografi</td></tr>
+        <tr><td>Lokasi Dokumentasi</td><td>Ketewel, Bali</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="slide" id="slide-penjelasan">
+    <div class="corner corner-tl"></div><div class="corner corner-tr"></div>
+    <div class="corner corner-bl"></div><div class="corner corner-br"></div>
+    <div class="slide-inner">
+      <p class="slide-tag anim">Tentang Upacara</p>
+      <h2 class="slide-heading anim">Melasti &amp;<br>Tawur Kesanga</h2>
+      <div class="divider anim" style="margin:0 0 1.2rem 0;"></div>
+      <div class="slide-body anim">
+        <p><span class="highlight">Melasti</span> merupakan rangkaian upacara suci umat Hindu di Bali yang dilakukan menjelang Hari Raya Nyepi sebagai proses <em>penyucian dan penyeimbangan alam</em>. Melasti dilakukan di laut atau sumber mata air suci untuk membersihkan diri dan alam dari hal-hal negatif.</p>
+        <span class="lotus">✦ &nbsp; ✦ &nbsp; ✦</span>
+        <p>Setelah itu, dilanjutkan dengan <span class="highlight">Tawur Kesanga</span> yang dilaksanakan saat <em>Tilem Kesanga</em>, berupa persembahan untuk menetralisir energi buruk (<em>bhuta kala</em>) dan memulihkan keseimbangan antara manusia, alam, dan kekuatan spiritual.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide" id="slide-proses">
+    <div class="corner corner-tl"></div><div class="corner corner-tr"></div>
+    <div class="corner corner-bl"></div><div class="corner corner-br"></div>
+    <div class="slide-inner">
+      <p class="slide-tag anim">Prosesi Upacara</p>
+      <h2 class="slide-heading anim">Rangkaian Melasti<br>di Ketewel</h2>
+      <div class="divider anim" style="margin:0 0 1.2rem 0;"></div>
+      <div class="slide-body anim">
+        <p>Prosesi Melasti di Ketewel diawali dengan seluruh <em>sesuhunan</em> dari pura-pura yang ada di Desa Ketewel <em>lunga</em> (datang) menuju <span class="highlight">Pura Samuan Tiga</span> yang berlokasi di Pura Payogan Agung. Setelah prosesi ini, masyarakat mulai melakukan <em>maturan</em> atau mempersembahkan sesajen kepada masing-masing sesuhunan. Rangkaian ini dilaksanakan sehari sebelum hari pengerupukan, sekitar pukul <strong>07.00 WITA</strong>.</p>
+        <span class="lotus">✦ &nbsp; ✦ &nbsp; ✦</span>
+        <p>Keesokan harinya, tepat pada hari pengerupukan sekitar pukul <strong>13.00 WITA</strong>, dilaksanakan prosesi Melasti menuju <span class="highlight">Pantai Pabean Ketewel</span>. Seluruh sesuhunan kembali lunga menuju pantai untuk disucikan. Terdapat beberapa rangkaian upacara seperti <em>ngaturan banten</em>, <em>Tari Rejang Dewa</em>, <em>Tari Baris</em>, serta <em>Tari Topeng Sidakarya</em>.</p>
+        <span class="lotus">✦ &nbsp; ✦ &nbsp; ✦</span>
+        <p>Setelah seluruh rangkaian di pantai selesai, sesuhunan kemudian menuju <span class="highlight">Bale Pegat</span> di Pura Desa Ketewel, di mana dilaksanakan upacara <em>mecaru</em> sebagai bagian dari penyucian dan penyeimbangan. Setelah prosesi mecaru selesai, seluruh sesuhunan <em>budal</em> (kembali) ke masing-masing pura.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide slide-media" id="slide-video">
+    <div class="corner corner-tl"></div><div class="corner corner-tr"></div>
+    <div class="corner corner-bl"></div><div class="corner corner-br"></div>
+
+    <div class="media-grid-2">
+      <video src="asset/video pagi 1.mp4" autoplay loop muted playsinline></video>
+      <video src="asset/video sore 2.mp4" autoplay loop muted playsinline></video>
+    </div>
+    
+    <div class="overlay-gradient"></div>
+    <div class="media-caption">
+      <h2 class="anim">Dokumentasi Visual</h2>
+      <p class="anim">Suasana Prosesi Melasti · Ketewel, Bali</p>
+    </div>
+  </div>
+
+  <div class="slide slide-media" id="slide-gallery">
+    <div class="corner corner-tl"></div><div class="corner corner-tr"></div>
+    <div class="corner corner-bl"></div><div class="corner corner-br"></div>
+
+    <div class="carousel-container">
+      <button class="carousel-btn prev" onclick="scrollCarousel(-1)" aria-label="Foto Sebelumnya">&#10094;</button>
+      
+      <div class="carousel-track" id="gallery-track">
+        <img src="asset/1.jpg" alt="Galeri 1" onerror="this.style.backgroundColor='#1a110a'" />
+        <img src="asset/2.jpg" alt="Galeri 2" onerror="this.style.backgroundColor='#1a110a'" />
+        <img src="asset/3.jpg" alt="Galeri 3" onerror="this.style.backgroundColor='#1a110a'" />
+        <img src="asset/4.jpg" alt="Galeri 4" onerror="this.style.backgroundColor='#1a110a'" />
+        <img src="asset/5.jpg" alt="Galeri 5" onerror="this.style.backgroundColor='#1a110a'" />
+        <img src="asset/6.jpg" alt="Galeri 6" onerror="this.style.backgroundColor='#1a110a'" />
+        <img src="asset/7.jpg" alt="Galeri 7" onerror="this.style.backgroundColor='#1a110a'" />
+        <img src="asset/8.jpg" alt="Galeri 8" onerror="this.style.backgroundColor='#1a110a'" />
+        <img src="asset/9.jpg" alt="Galeri 9" onerror="this.style.backgroundColor='#1a110a'" />
+        <img src="asset/10.jpg" alt="Galeri 10" onerror="this.style.backgroundColor='#1a110a'" />
+        <img src="asset/11.jpeg" alt="Galeri 11" onerror="this.style.backgroundColor='#1a110a'" />
+        <img src="asset/12.jpeg" alt="Galeri 12" onerror="this.style.backgroundColor='#1a110a'" />
+      </div>
+
+      <button class="carousel-btn next" onclick="scrollCarousel(1)" aria-label="Foto Berikutnya">&#10095;</button>
+    </div>
+
+    <div class="overlay-gradient"></div>
+    <div class="media-caption">
+      <h2 class="anim">Tawur Kesanga</h2>
+      <p class="anim">Galeri Dokumentasi Upacara</p>
+    </div>
+  </div>
+
+  <div class="slide" id="slide-closing">
+    <div class="corner corner-tl"></div><div class="corner corner-tr"></div>
+    <div class="corner corner-bl"></div><div class="corner corner-br"></div>
+
+    <div class="om-big anim">ॐ</div>
+    <div class="divider anim"></div>
+    <h2 class="anim">Terima Kasih</h2>
+    <p class="sub anim">Om Shanti Shanti Shanti Om</p>
+    <div class="divider anim"></div>
+    <p class="closing-name anim">
+      I Komang Abhi Cakra Dharma &nbsp;·&nbsp; 202408013 &nbsp;·&nbsp; Fotografi
+    </p>
+  </div>
+
+</div><nav id="nav">
+  <button class="nav-btn" id="btn-prev" disabled aria-label="Sebelumnya">&#8592;</button>
+  <div id="dots"></div>
+  <button class="nav-btn" id="btn-next" aria-label="Berikutnya">&#8594;</button>
+</nav>
+
+<script>
+  // === LOGIKA SLIDER UTAMA ===
+  const slides    = Array.from(document.querySelectorAll('.slide'));
+  const total     = slides.length;
+  let   current   = 0;
+
+  const slider    = document.getElementById('slider');
+  const counter   = document.getElementById('slide-counter');
+  const progress  = document.getElementById('progress');
+  const dotsEl    = document.getElementById('dots');
+  const btnPrev   = document.getElementById('btn-prev');
+  const btnNext   = document.getElementById('btn-next');
+
+  slides.forEach((_, i) => {
+    const d = document.createElement('span');
+    d.className = 'dot' + (i === 0 ? ' active' : '');
+    d.addEventListener('click', () => goTo(i));
+    dotsEl.appendChild(d);
+  });
+
+  function pad(n){ return String(n).padStart(2,'0'); }
+
+  function goTo(idx) {
+    slides[current].classList.remove('active');
+    current = Math.max(0, Math.min(total - 1, idx));
+    slides[current].classList.add('active');
+
+    slider.style.transform = `translateX(-${current * 100}vw)`;
+    counter.textContent = `${pad(current + 1)} / ${pad(total)}`;
+    progress.style.width = `${((current + 1) / total) * 100}%`;
+
+    document.querySelectorAll('.dot').forEach((d,i) => d.classList.toggle('active', i === current));
+    btnPrev.disabled = current === 0;
+    btnNext.disabled = current === total - 1;
+  }
+
+  btnPrev.addEventListener('click', () => goTo(current - 1));
+  btnNext.addEventListener('click', () => goTo(current + 1));
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') goTo(current + 1);
+    if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')    goTo(current - 1);
+  });
+
+  // === LOGIKA SWIPE UNTUK MOBILE ===
+  let touchX = null;
+  document.addEventListener('touchstart', e => { 
+    // Mencegah slide utama berpindah jika user sedang menggeser area carousel foto
+    if(e.target.closest('.carousel-track')) return; 
+    touchX = e.touches[0].clientX; 
+  });
+  document.addEventListener('touchend',   e => {
+    if(e.target.closest('.carousel-track')) return; 
+    if (touchX === null) return;
+    const dx = e.changedTouches[0].clientX - touchX;
+    if (Math.abs(dx) > 50) goTo(current + (dx < 0 ? 1 : -1));
+    touchX = null;
+  });
+
+  goTo(0);
+
+  // === LOGIKA CAROUSEL FOTO SLIDE 6 ===
+  function scrollCarousel(dir) {
+    const track = document.getElementById('gallery-track');
+    // Geser sejauh ukuran lebar 1 foto ditambah jarak antar foto (gap 20px)
+    if(track.children.length > 0) {
+      const scrollAmount = track.children[0].offsetWidth + 20; 
+      track.scrollBy({ left: dir * scrollAmount, behavior: 'smooth' });
+    }
+  }
+</script>
+</body>
+</html>
