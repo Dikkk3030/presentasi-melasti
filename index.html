@@ -211,21 +211,21 @@
       text-shadow: 0 1px 8px rgba(0,0,0,1);
     }
 
-/* ── SLIDE 5 — 2 VIDEO ── */
+    /* ── SLIDE 5 — 2 VIDEO ── */
     .media-grid-2 {
       position: absolute; inset: 0;
       display: flex; 
       align-items: center; 
       justify-content: center;
-      gap: 5vw; /* Jarak antar video */
+      gap: 5vw;
       padding: 0 5vw;
       z-index: 1;
     }
     .media-grid-2 video {
-      height: 70vh; /* Menggunakan tinggi sebagai patokan agar tidak terpotong di layar */
-      width: auto; /* Lebar akan menyesuaikan otomatis sesuai rasio */
-      max-width: 45vw; /* Batas agar tidak saling berhimpitan di layar kecil/HP */
-      aspect-ratio: 9 / 16; /* Memaksa rasio vertikal */
+      height: 70vh;
+      width: auto;
+      max-width: 45vw;
+      aspect-ratio: 9 / 16;
       object-fit: cover;
       opacity: .75;
       border-radius: 6px;
@@ -249,45 +249,46 @@
       justify-content: center;
       z-index: 3;
     }
+
     .carousel-track {
-      display: flex; 
-      gap: 30px; /* Memperbesar jarak antar foto sedikit */
-      width: 100%; 
-      height: auto; /* Dibuat otomatis mengikuti gambar, bukan 65vh lagi */
-      padding: 0 25vw; /* Padding diperbesar agar foto lebih ke tengah */
+      display: flex;
+      gap: 30px;
+      width: 100%;
+      padding: 0 25vw;
       overflow-x: auto;
-      scroll-snap-type: x mandatory; 
-      scrollbar-width: none; 
-      align-items: center;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: none;
+      align-items: center;          /* gambar portrait & landscape rata tengah */
     }
     .carousel-track::-webkit-scrollbar { display: none; }
-    
+
     .carousel-track img {
-      flex: 0 0 50vw; /* Memperkecil ukuran foto dari 70vw menjadi 50vw */
-      max-width: 700px;
-      aspect-ratio: 16 / 9; /* Memaksa rasio aspek 16:9 */
+      flex: 0 0 auto;               /* lebar mengikuti gambar, tidak dipaksa */
+      max-height: 72vh;             /* batas tinggi agar muat di layar */
+      max-width: 80vw;              /* batas lebar untuk gambar portrait di layar kecil */
+      width: auto;
       height: auto;
-      object-fit: cover; 
+      /* aspect-ratio DIHAPUS — biarkan gambar pakai rasio aslinya */
+      object-fit: contain;          /* contain agar tidak terpotong */
       scroll-snap-align: center;
       border-radius: 6px;
       border: 1px solid rgba(201,168,76,.3);
       box-shadow: 0 10px 40px rgba(0,0,0,0.8);
       filter: sepia(.2) saturate(1.1);
       transition: all 0.4s ease;
-      
       -webkit-backface-visibility: hidden;
       backface-visibility: hidden;
       -webkit-transform: translateZ(0);
       transform: translateZ(0);
       will-change: transform, filter;
     }
-    
+
     .carousel-track img:hover {
       filter: sepia(0) saturate(1.2);
       transform: scale(1.01);
     }
 
-    /* Tombol Navigasi Carousel Khusus */
+    /* Tombol Navigasi Carousel */
     .carousel-btn {
       position: absolute; 
       top: 50%; 
@@ -380,6 +381,7 @@
     .slide.active .anim:nth-child(4) { transition-delay: .45s; }
     .slide.active .anim:nth-child(5) { transition-delay: .6s; }
     .lotus { display: block; text-align: center; font-size: 1.4rem; color: var(--gold); opacity: .5; margin: .8rem 0; letter-spacing: .5rem; }
+
     @media (max-height: 600px) { .slide-body { font-size: .78rem; max-height: 52vh; } }
   </style>
 </head>
@@ -391,6 +393,7 @@
 
 <div id="slider">
 
+  <!-- SLIDE 1 — TITLE -->
   <div class="slide active" id="slide-title">
     <div class="corner corner-tl"></div><div class="corner corner-tr"></div>
     <div class="corner corner-bl"></div><div class="corner corner-br"></div>
@@ -401,6 +404,7 @@
     <p class="subtitle anim">Dokumentasi Upacara Suci Umat Hindu Bali</p>
   </div>
 
+  <!-- SLIDE 2 — IDENTITAS -->
   <div class="slide" id="slide-id">
     <div class="corner corner-tl"></div><div class="corner corner-tr"></div>
     <div class="corner corner-bl"></div><div class="corner corner-br"></div>
@@ -416,6 +420,7 @@
     </div>
   </div>
 
+  <!-- SLIDE 3 — PENJELASAN -->
   <div class="slide" id="slide-penjelasan">
     <div class="corner corner-tl"></div><div class="corner corner-tr"></div>
     <div class="corner corner-bl"></div><div class="corner corner-br"></div>
@@ -431,6 +436,7 @@
     </div>
   </div>
 
+  <!-- SLIDE 4 — PROSES -->
   <div class="slide" id="slide-proses">
     <div class="corner corner-tl"></div><div class="corner corner-tr"></div>
     <div class="corner corner-bl"></div><div class="corner corner-br"></div>
@@ -448,15 +454,16 @@
     </div>
   </div>
 
+  <!-- SLIDE 5 — VIDEO -->
   <div class="slide slide-media" id="slide-video">
     <div class="corner corner-tl"></div><div class="corner corner-tr"></div>
     <div class="corner corner-bl"></div><div class="corner corner-br"></div>
 
-  <div class="media-grid-2">
+    <div class="media-grid-2">
       <video src="asset/video pagi 1.mp4" controls playsinline></video>
       <video src="asset/video sore 2.mp4" controls playsinline></video>
     </div>
-    
+
     <div class="overlay-gradient"></div>
     <div class="media-caption">
       <h2 class="anim">Dokumentasi Visual</h2>
@@ -464,24 +471,25 @@
     </div>
   </div>
 
+  <!-- SLIDE 6 — GALLERY CAROUSEL -->
   <div class="slide slide-media" id="slide-gallery">
     <div class="corner corner-tl"></div><div class="corner corner-tr"></div>
     <div class="corner corner-bl"></div><div class="corner corner-br"></div>
 
     <div class="carousel-container">
       <button class="carousel-btn prev" onclick="scrollCarousel(-1)" aria-label="Foto Sebelumnya">&#10094;</button>
-      
+
       <div class="carousel-track" id="gallery-track">
-        <img src="asset/1.jpg" alt="Galeri 1" onerror="this.style.backgroundColor='#1a110a'" />
-        <img src="asset/2.jpg" alt="Galeri 2" onerror="this.style.backgroundColor='#1a110a'" />
-        <img src="asset/3.jpg" alt="Galeri 3" onerror="this.style.backgroundColor='#1a110a'" />
-        <img src="asset/4.jpg" alt="Galeri 4" onerror="this.style.backgroundColor='#1a110a'" />
-        <img src="asset/5.jpg" alt="Galeri 5" onerror="this.style.backgroundColor='#1a110a'" />
-        <img src="asset/6.jpg" alt="Galeri 6" onerror="this.style.backgroundColor='#1a110a'" />
-        <img src="asset/7.jpg" alt="Galeri 7" onerror="this.style.backgroundColor='#1a110a'" />
-        <img src="asset/8.jpg" alt="Galeri 8" onerror="this.style.backgroundColor='#1a110a'" />
-        <img src="asset/9.jpg" alt="Galeri 9" onerror="this.style.backgroundColor='#1a110a'" />
-        <img src="asset/10.jpg" alt="Galeri 10" onerror="this.style.backgroundColor='#1a110a'" />
+        <img src="asset/1.jpg"   alt="Galeri 1"  onerror="this.style.backgroundColor='#1a110a'" />
+        <img src="asset/2.jpg"   alt="Galeri 2"  onerror="this.style.backgroundColor='#1a110a'" />
+        <img src="asset/3.jpg"   alt="Galeri 3"  onerror="this.style.backgroundColor='#1a110a'" />
+        <img src="asset/4.jpg"   alt="Galeri 4"  onerror="this.style.backgroundColor='#1a110a'" />
+        <img src="asset/5.jpg"   alt="Galeri 5"  onerror="this.style.backgroundColor='#1a110a'" />
+        <img src="asset/6.jpg"   alt="Galeri 6"  onerror="this.style.backgroundColor='#1a110a'" />
+        <img src="asset/7.jpg"   alt="Galeri 7"  onerror="this.style.backgroundColor='#1a110a'" />
+        <img src="asset/8.jpg"   alt="Galeri 8"  onerror="this.style.backgroundColor='#1a110a'" />
+        <img src="asset/9.jpg"   alt="Galeri 9"  onerror="this.style.backgroundColor='#1a110a'" />
+        <img src="asset/10.jpg"  alt="Galeri 10" onerror="this.style.backgroundColor='#1a110a'" />
         <img src="asset/11.jpeg" alt="Galeri 11" onerror="this.style.backgroundColor='#1a110a'" />
         <img src="asset/12.jpeg" alt="Galeri 12" onerror="this.style.backgroundColor='#1a110a'" />
       </div>
@@ -496,6 +504,7 @@
     </div>
   </div>
 
+  <!-- SLIDE 7 — CLOSING -->
   <div class="slide" id="slide-closing">
     <div class="corner corner-tl"></div><div class="corner corner-tr"></div>
     <div class="corner corner-bl"></div><div class="corner corner-br"></div>
@@ -510,7 +519,9 @@
     </p>
   </div>
 
-</div><nav id="nav">
+</div>
+
+<nav id="nav">
   <button class="nav-btn" id="btn-prev" disabled aria-label="Sebelumnya">&#8592;</button>
   <div id="dots"></div>
   <button class="nav-btn" id="btn-next" aria-label="Berikutnya">&#8594;</button>
@@ -518,16 +529,16 @@
 
 <script>
   // === LOGIKA SLIDER UTAMA ===
-  const slides    = Array.from(document.querySelectorAll('.slide'));
-  const total     = slides.length;
-  let   current   = 0;
+  const slides  = Array.from(document.querySelectorAll('.slide'));
+  const total   = slides.length;
+  let   current = 0;
 
-  const slider    = document.getElementById('slider');
-  const counter   = document.getElementById('slide-counter');
-  const progress  = document.getElementById('progress');
-  const dotsEl    = document.getElementById('dots');
-  const btnPrev   = document.getElementById('btn-prev');
-  const btnNext   = document.getElementById('btn-next');
+  const slider   = document.getElementById('slider');
+  const counter  = document.getElementById('slide-counter');
+  const progress = document.getElementById('progress');
+  const dotsEl   = document.getElementById('dots');
+  const btnPrev  = document.getElementById('btn-prev');
+  const btnNext  = document.getElementById('btn-next');
 
   slides.forEach((_, i) => {
     const d = document.createElement('span');
@@ -536,7 +547,7 @@
     dotsEl.appendChild(d);
   });
 
-  function pad(n){ return String(n).padStart(2,'0'); }
+  function pad(n) { return String(n).padStart(2, '0'); }
 
   function goTo(idx) {
     slides[current].classList.remove('active');
@@ -544,10 +555,10 @@
     slides[current].classList.add('active');
 
     slider.style.transform = `translateX(-${current * 100}vw)`;
-    counter.textContent = `${pad(current + 1)} / ${pad(total)}`;
-    progress.style.width = `${((current + 1) / total) * 100}%`;
+    counter.textContent    = `${pad(current + 1)} / ${pad(total)}`;
+    progress.style.width   = `${((current + 1) / total) * 100}%`;
 
-    document.querySelectorAll('.dot').forEach((d,i) => d.classList.toggle('active', i === current));
+    document.querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('active', i === current));
     btnPrev.disabled = current === 0;
     btnNext.disabled = current === total - 1;
   }
@@ -557,18 +568,17 @@
 
   document.addEventListener('keydown', e => {
     if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') goTo(current + 1);
-    if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')    goTo(current - 1);
+    if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')                    goTo(current - 1);
   });
 
   // === LOGIKA SWIPE UNTUK MOBILE ===
   let touchX = null;
-  document.addEventListener('touchstart', e => { 
-    // Mencegah slide utama berpindah jika user sedang menggeser area carousel foto
-    if(e.target.closest('.carousel-track')) return; 
-    touchX = e.touches[0].clientX; 
+  document.addEventListener('touchstart', e => {
+    if (e.target.closest('.carousel-track')) return;
+    touchX = e.touches[0].clientX;
   });
-  document.addEventListener('touchend',   e => {
-    if(e.target.closest('.carousel-track')) return; 
+  document.addEventListener('touchend', e => {
+    if (e.target.closest('.carousel-track')) return;
     if (touchX === null) return;
     const dx = e.changedTouches[0].clientX - touchX;
     if (Math.abs(dx) > 50) goTo(current + (dx < 0 ? 1 : -1));
@@ -578,11 +588,12 @@
   goTo(0);
 
   // === LOGIKA CAROUSEL FOTO SLIDE 6 ===
+  // Scroll per gambar — lebar aktual + gap (30px)
   function scrollCarousel(dir) {
-    const track = document.getElementById('gallery-track');
-    // Geser sejauh ukuran lebar 1 foto ditambah jarak antar foto (gap 20px)
-    if(track.children.length > 0) {
-      const scrollAmount = track.children[0].offsetWidth + 20; 
+    const track    = document.getElementById('gallery-track');
+    const firstImg = track.querySelector('img');
+    if (firstImg) {
+      const scrollAmount = firstImg.offsetWidth + 30; // 30 = gap antar foto
       track.scrollBy({ left: dir * scrollAmount, behavior: 'smooth' });
     }
   }
